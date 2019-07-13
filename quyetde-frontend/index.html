@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quyết Đê Anh Em</title>
+</head>
+<body>
+    <Span>Quyết Đê!!!!</Span>
+    <span>
+        <a href="">Hỏi Nhanh</a>
+     </span>
+    <span>
+        <a href="">Đáp gọn</a>
+    </span>
+    <form action="" method="POST">
+        <h1>Question content</h1>
+        <div>
+            <button type="submit">Sai / Không / Trái </button>
+            <button type="submit">Đúng / Có / Phải </button>
+        </div>
+        <div>
+            <button>Kết quả vote</button>
+            <button>Câu hỏi khác</button>
+        </div>
+        
+    </form>
+
+    <script>
+        console.log(window.location.search);
+        const searchParam = new URLSearchParams(window.location.search);
+        const questionId = searchParam.get('questionId');
+        console.log(questionId);
+
+        fetch('http://localhost:6789/'+questionId,{
+            method : 'GET',
+        }).then(function (response) {
+            return response.json();
+        }).then(function(data) {
+            console.log(data);
+            console.log(document.querySelector('h1'));        
+            document.querySelector('h1').innerText = data.content;
+        }).catch(function(err) {
+            console.log("ERROR" ,err);          
+        });
+
+        fetch('http://localhost:6789/'+questionId,{
+            method : 'POST',
+        }).then(function (response) {
+            return response.json();
+        }).then(function(data) {
+            console.log(data);
+            
+        }).catch(function(err) {
+            console.log("ERROR" ,err);          
+        });
+
+    </script>
+</body>
+</html>
